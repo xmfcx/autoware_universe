@@ -42,6 +42,20 @@ jobs:
     runs-on: ${{ fromJson(inputs.runner) }}
     container: ${{ inputs.container }}${{ inputs.container-suffix }}
     steps:
+      - name: Show environment variables
+        run: |
+          printenv ACADOS_SOURCE_DIR || echo "ACADOS_SOURCE_DIR is not set"
+          printenv CMAKE_PREFIX_PATH || echo "CMAKE_PREFIX_PATH is not set"
+          printenv LD_LIBRARY_PATH || echo "LD_LIBRARY_PATH is not set"
+          
+          echo "=== /etc/skel/.bashrc ==="
+          cat /etc/skel/.bashrc || echo "Not found"
+      
+          echo "=== Current user .bashrc ==="
+          cat ~/.bashrc || echo "Not found"
+          cat "$HOME/.bashrc" || echo "Not found (via \$HOME)"
+        shell: bash
+
       - name: Set PR fetch depth
         run: echo "PR_FETCH_DEPTH=$(( ${{ github.event.pull_request.commits }} + 1 ))" >> "${GITHUB_ENV}"
         shell: bash
