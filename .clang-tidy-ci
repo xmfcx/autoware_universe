@@ -1,3 +1,4 @@
+# Throwaway change to test the full clang-tidy scan. Do not merge.
 Checks: "
   -*,
   bugprone-*,
